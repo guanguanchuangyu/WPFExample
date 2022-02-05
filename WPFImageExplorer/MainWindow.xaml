@@ -1,0 +1,58 @@
+﻿<hc:Window x:Class="WPFImageExplorer.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:WPFImageExplorer"
+        xmlns:vm="clr-namespace:WPFImageExplorer.Models"
+        xmlns:hc="https://handyorg.github.io/handycontrol"
+        mc:Ignorable="d"
+        Title="个人图片查看器" Height="450" Width="800">
+    <hc:Window.Resources>
+        <local:BindingProxy x:Key="ImageLst" Data="{Binding ElementName=ImageLst, Mode=OneWay}"></local:BindingProxy>
+    </hc:Window.Resources>
+    <DockPanel>
+        <hc:Drawer Name="DrawerLeft" Dock="Right" ShowMode="Cover">
+            <hc:SimplePanel>
+                <Border BorderThickness="0" BorderBrush="Transparent" Background="{DynamicResource RegionBrush}" Width="{Binding Data.ActualWidth, Source={StaticResource ImageLst}}">
+                    <hc:ImageViewer Name="ImageViewer"></hc:ImageViewer>
+                </Border>
+                <Button Cursor="Hand" Command="hc:ControlCommands.Close" HorizontalAlignment="Left" VerticalAlignment="Top" Foreground="{DynamicResource PrimaryTextBrush}" Opacity="0.5" Style="{DynamicResource ButtonIcon}" hc:IconElement.Geometry="{DynamicResource DeleteFillCircleGeometry}"/>
+            </hc:SimplePanel>
+        </hc:Drawer>
+        <Button x:Name="btn_selected" Content="加载" DockPanel.Dock="Top" Click="btn_selected_Click"></Button>
+        <!--
+1、加载现有图片数据
+2、布局容器用瀑布流
+3、展示动画用基础动画组件
+4、添加一个时间轴
+        -->
+        <ListBox x:Name="ImageLst"  Padding="10" MinWidth="210" Style="{DynamicResource ListBoxCustom}" SelectionChanged="ImageLst_Selected">
+            <ListBox.ItemTemplate>
+                <DataTemplate DataType="{x:Type vm:ImageObject}">
+                    <Border Padding="0,4" MinWidth="210"  MinHeight="210">
+                        <DockPanel x:Name="Content" MaxWidth="210"  MaxHeight="210">
+                            <TextBlock TextBlock.TextAlignment="Center" TextWrapping="Wrap" Text="{Binding Name}" DockPanel.Dock="Bottom"></TextBlock>
+                            <Image Stretch="Uniform" Margin="0,4" ToolTip="{Binding Name}" VerticalAlignment="Bottom" Source="{Binding Path}">
+                                <Image.Effect>
+                                    <DropShadowEffect ShadowDepth="2" BlurRadius="10" Direction="270" Color="Black" Opacity="0.4"></DropShadowEffect>
+                                </Image.Effect>
+                            </Image>
+                        </DockPanel>
+                    </Border>
+                </DataTemplate>
+            </ListBox.ItemTemplate>
+            <ListBox.ItemContainerStyle>
+                <Style TargetType="{x:Type ListBoxItem}">
+                    <Setter Property="Cursor" Value="Hand"/>
+                    <Setter  Property="FocusVisualStyle" Value="{x:Null}"/>
+                </Style>
+            </ListBox.ItemContainerStyle>
+            <ListBox.ItemsPanel>
+                <ItemsPanelTemplate>
+                    <hc:WaterfallPanel AutoGroup="True" DesiredLength="210"  hc:PanelElement.FluidMoveBehavior="{StaticResource BehaviorXY200}"></hc:WaterfallPanel>
+                </ItemsPanelTemplate>
+            </ListBox.ItemsPanel>
+        </ListBox>
+    </DockPanel>
+</hc:Window>

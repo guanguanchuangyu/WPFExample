@@ -1,0 +1,70 @@
+﻿<Window x:Class="WPFStyleTemplate.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:WPFStyleTemplate"
+        mc:Ignorable="d"
+        Title="MainWindow" Height="450" Width="800">
+    <Grid>
+        <ListBox ItemContainerStyle="{DynamicResource ListBoxItemContainerStyle}" VerticalAlignment="Top" Style="{DynamicResource CustomStyle}" >
+            <!--<ListBoxItem Style="{DynamicResource CustomListBoxItemStyle}" Content="测试"></ListBoxItem>-->
+            <TextBlock Text="bin"></TextBlock>
+            <TextBlock Text="include"></TextBlock>
+            <TextBlock Text="lib"></TextBlock>
+            <TextBlock Text="libexec"></TextBlock>
+        </ListBox>
+        <Border HorizontalAlignment="Left" BorderThickness="5" Width="300" Height="300">
+            <Border.Background>
+                <ImageBrush Stretch="Fill" TileMode="FlipXY" AlignmentX="Left" AlignmentY="Top" ImageSource="pack://application:,,,/Resources/Images/image01.png"></ImageBrush>
+            </Border.Background>
+        </Border>
+        <UniformGrid Columns="3" Rows="3" Width="300" Height="300" HorizontalAlignment="Right">
+            <Border BorderThickness="5">
+                <Border.Background>
+                    <ImageBrush Stretch="None" TileMode="FlipXY" AlignmentX="Left" AlignmentY="Top" ImageSource="pack://application:,,,/Resources/Images/image01.png"></ImageBrush>
+                </Border.Background>
+            </Border>
+            <Border BorderThickness="5">
+                <Border.Background>
+                    <ImageBrush Stretch="None" TileMode="FlipXY" AlignmentX="Center" AlignmentY="Top" ImageSource="pack://application:,,,/Resources/Images/image01.png"></ImageBrush>
+                </Border.Background>
+            </Border>
+            <Border BorderThickness="5">
+                <Border.Background>
+                    <ImageBrush Stretch="None" TileMode="FlipXY" AlignmentX="Right" AlignmentY="Top" ImageSource="pack://application:,,,/Resources/Images/image01.png"></ImageBrush>
+                </Border.Background>
+            </Border>
+            <Border BorderThickness="5">
+                <Border.Background>
+                    <ImageBrush Stretch="None" TileMode="FlipXY" AlignmentX="Left" AlignmentY="Center" ImageSource="pack://application:,,,/Resources/Images/image01.png"></ImageBrush>
+                </Border.Background>
+            </Border>
+            <Border BorderThickness="5">
+                <Border.Background>
+                    <ImageBrush Stretch="None" TileMode="FlipXY" AlignmentX="Center" AlignmentY="Center" ImageSource="pack://application:,,,/Resources/Images/image01.png"></ImageBrush>
+                </Border.Background>
+            </Border>
+            <Border BorderThickness="5">
+                <Border.Background>
+                    <ImageBrush Stretch="None" TileMode="FlipXY" AlignmentX="Right" AlignmentY="Center" ImageSource="pack://application:,,,/Resources/Images/image01.png"></ImageBrush>
+                </Border.Background>
+            </Border>
+            <Border BorderThickness="5">
+                <Border.Background>
+                    <ImageBrush Stretch="None" TileMode="FlipXY" AlignmentX="Left" AlignmentY="Bottom" ImageSource="pack://application:,,,/Resources/Images/image01.png"></ImageBrush>
+                </Border.Background>
+            </Border>
+            <Border BorderThickness="5">
+                <Border.Background>
+                    <ImageBrush Stretch="None" TileMode="FlipXY" AlignmentX="Center" AlignmentY="Bottom" ImageSource="pack://application:,,,/Resources/Images/image01.png"></ImageBrush>
+                </Border.Background>
+            </Border>
+            <Border BorderThickness="5">
+                <Border.Background>
+                    <ImageBrush Stretch="None" TileMode="FlipXY" AlignmentX="Right" AlignmentY="Bottom" ImageSource="pack://application:,,,/Resources/Images/image01.png"></ImageBrush>
+                </Border.Background>
+            </Border>
+        </UniformGrid>
+    </Grid>
+</Window>
