@@ -71,5 +71,29 @@ namespace WPFImageExplorer
             }
             e.Handled = false;
         }
+
+        private void btn_nomal_Checked(object sender, RoutedEventArgs e)
+        {
+            RadioButton radioButton = sender as RadioButton;
+       if (radioButton != null)
+            {
+                string tag = radioButton.Tag?.ToString();
+                if (string.IsNullOrEmpty(tag))
+                {
+                    return;
+                }
+
+                string strkey = $"ListBox.{tag}";
+                //var stylekey = ImageLst.FindResource(strkey);
+                //if (stylekey != null)
+                //{
+                //    return;
+                //}
+                var keystyle = FindResource(strkey) as Style;
+                if (keystyle != null) {
+                    ImageLst.Style = keystyle;
+                }
+            }
+        }
     }
 }

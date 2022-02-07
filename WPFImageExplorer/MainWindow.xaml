@@ -10,6 +10,65 @@
         Title="个人图片查看器" Height="450" Width="800">
     <hc:Window.Resources>
         <local:BindingProxy x:Key="ImageLst" Data="{Binding ElementName=ImageLst, Mode=OneWay}"></local:BindingProxy>
+        
+        <Style x:Key="ListBoxItem.Common" TargetType="{x:Type ListBoxItem}">
+            <Setter Property="Cursor" Value="Hand"/>
+            <Setter  Property="FocusVisualStyle" Value="{x:Null}"/>
+            <Setter Property="VerticalAlignment" Value="Stretch"/>
+            <Setter Property="HorizontalAlignment" Value="Stretch"/>
+        </Style>
+        
+        <Style x:Key="ListBox.Large" BasedOn="{StaticResource ListBoxCustom}" TargetType="{x:Type ListBox}">
+            <Setter Property="VerticalContentAlignment" Value="Center"/>
+            <Setter Property="ItemContainerStyle" Value="{StaticResource ListBoxItem.Common}"/>
+            <Setter Property="ItemsPanel">
+                <Setter.Value>
+                    <ItemsPanelTemplate>
+                        <hc:WaterfallPanel AutoGroup="True" DesiredLength="210" ></hc:WaterfallPanel>
+                    </ItemsPanelTemplate>
+                </Setter.Value>
+            </Setter>
+            <Setter Property="ItemTemplate">
+                <Setter.Value>
+                    <DataTemplate DataType="{x:Type vm:ImageObject}">
+                        <Border Padding="0,4" MinWidth="210"  MinHeight="210">
+                            <DockPanel x:Name="Content" MaxWidth="210"  MaxHeight="210">
+                                <TextBlock TextBlock.TextAlignment="Center" TextWrapping="Wrap" Text="{Binding Name}" DockPanel.Dock="Bottom"></TextBlock>
+                                <Image Stretch="Uniform" Margin="0,4" ToolTip="{Binding Name}" VerticalAlignment="Bottom" Source="{Binding Path}">
+                                    <Image.Effect>
+                                        <DropShadowEffect ShadowDepth="2" BlurRadius="10" Direction="270" Color="Black" Opacity="0.4"></DropShadowEffect>
+                                    </Image.Effect>
+                                </Image>
+                            </DockPanel>
+                        </Border>
+                    </DataTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+
+        <Style x:Key="ListBox.Normal" BasedOn="{StaticResource ListBoxCustom}" TargetType="{x:Type ListBox}">
+            <Setter Property="VerticalContentAlignment" Value="Center"/>
+            <Setter Property="HorizontalContentAlignment" Value="Left"/>
+            <Setter Property="ItemContainerStyle" Value="{StaticResource ListBoxItem.Common}"/>
+            <Setter Property="ItemsPanel">
+                <Setter.Value>
+                    <ItemsPanelTemplate>
+                        <hc:WaterfallPanel AutoGroup="True" DesiredLength="210" ></hc:WaterfallPanel>
+                    </ItemsPanelTemplate>
+                </Setter.Value>
+            </Setter>
+            <Setter Property="ItemTemplate">
+                <Setter.Value>
+                    <DataTemplate DataType="{x:Type vm:ImageObject}">
+                        <DockPanel ToolTip="{Binding Name}" MinWidth="210"  MinHeight="210">
+                            <TextBlock TextBlock.TextAlignment="Center" TextWrapping="Wrap" VerticalAlignment="Center" Text="{Binding Name}" DockPanel.Dock="Right"></TextBlock>
+                            <Image Stretch="Uniform" Margin="5"  Width="100" Height="100" HorizontalAlignment="Left" VerticalAlignment="Center" Source="{Binding Path}">
+                            </Image>
+                        </DockPanel>
+                    </DataTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
     </hc:Window.Resources>
     <DockPanel>
         <hc:Drawer Name="DrawerLeft" Dock="Right" ShowMode="Cover">
@@ -20,39 +79,23 @@
                 <Button Cursor="Hand" Command="hc:ControlCommands.Close" HorizontalAlignment="Left" VerticalAlignment="Top" Foreground="{DynamicResource PrimaryTextBrush}" Opacity="0.5" Style="{DynamicResource ButtonIcon}" hc:IconElement.Geometry="{DynamicResource DeleteFillCircleGeometry}"/>
             </hc:SimplePanel>
         </hc:Drawer>
-        <Button x:Name="btn_selected" Content="加载" DockPanel.Dock="Top" Click="btn_selected_Click"></Button>
+        <StackPanel DockPanel.Dock="Top" Orientation="Horizontal" HorizontalAlignment="Center">
+            <Button x:Name="btn_selected" Content="加载" Click="btn_selected_Click"></Button>
+            <hc:ButtonGroup Style="{DynamicResource ButtonGroupSolid}">
+                <RadioButton Style="{StaticResource ToggleButtonIcon}" hc:IconElement.Geometry="{DynamicResource AllGeometry}" Tag="Normal" x:Name="btn_nomal" Checked="btn_nomal_Checked"></RadioButton>
+                <RadioButton Style="{StaticResource ToggleButtonIcon}" hc:IconElement.Geometry="{DynamicResource FatalGeometry}" Tag="Large" x:Name="btn_large" Checked="btn_nomal_Checked"></RadioButton>
+            </hc:ButtonGroup>
+        </StackPanel>
         <!--
 1、加载现有图片数据
 2、布局容器用瀑布流
 3、展示动画用基础动画组件
-4、添加一个时间轴
+4、添加一个时间轴（时间轴模式）
+5、轮播列表展示（轮播列表模式）
+6、图片墙展示（图片墙模式）
         -->
-        <ListBox x:Name="ImageLst"  Padding="0" MinWidth="210" Style="{DynamicResource ListBoxCustom}" SelectionChanged="ImageLst_Selected" d:ItemsSource="{d:SampleData ItemCount=5}">
-            <ListBox.ItemTemplate>
-                <DataTemplate DataType="{x:Type vm:ImageObject}">
-                    <Border Padding="0,4" MinWidth="210"  MinHeight="210">
-                        <DockPanel x:Name="Content" MaxWidth="210"  MaxHeight="210">
-                            <TextBlock TextBlock.TextAlignment="Center" TextWrapping="Wrap" Text="{Binding Name}" DockPanel.Dock="Bottom"></TextBlock>
-                            <Image Stretch="Uniform" Margin="0,4" ToolTip="{Binding Name}" VerticalAlignment="Bottom" Source="{Binding Path}">
-                                <Image.Effect>
-                                    <DropShadowEffect ShadowDepth="2" BlurRadius="10" Direction="270" Color="Black" Opacity="0.4"></DropShadowEffect>
-                                </Image.Effect>
-                            </Image>
-                        </DockPanel>
-                    </Border>
-                </DataTemplate>
-            </ListBox.ItemTemplate>
-            <ListBox.ItemContainerStyle>
-                <Style TargetType="{x:Type ListBoxItem}">
-                    <Setter Property="Cursor" Value="Hand"/>
-                    <Setter  Property="FocusVisualStyle" Value="{x:Null}"/>
-                </Style>
-            </ListBox.ItemContainerStyle>
-            <ListBox.ItemsPanel>
-                <ItemsPanelTemplate>
-                    <hc:WaterfallPanel AutoGroup="True" DesiredLength="210"  hc:PanelElement.FluidMoveBehavior="{StaticResource BehaviorXY200}"></hc:WaterfallPanel>
-                </ItemsPanelTemplate>
-            </ListBox.ItemsPanel>
+        <ListBox x:Name="ImageLst"  Padding="0" MinWidth="210" Style="{StaticResource ListBox.Normal}" SelectionChanged="ImageLst_Selected" d:ItemsSource="{d:SampleData ItemCount=5}">
+            
         </ListBox>
     </DockPanel>
 </hc:Window>
