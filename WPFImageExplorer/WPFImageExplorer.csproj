@@ -7,18 +7,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <None Remove="Resources\Images\IMG_20210107_212115.jpg" />
-    <None Remove="Resources\Images\mmexport1609502045021.jpg" />
-    <None Remove="Resources\Images\wx_camera_1611494510864.jpg" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Resource Include="Resources\Images\IMG_20210107_212115.jpg" />
-    <Resource Include="Resources\Images\mmexport1609502045021.jpg" />
-    <Resource Include="Resources\Images\wx_camera_1611494510864.jpg" />
-  </ItemGroup>
-
-  <ItemGroup>
+    <Folder Include="Resources\Images\" />
     <Folder Include="ViewModels\" />
   </ItemGroup>
 
