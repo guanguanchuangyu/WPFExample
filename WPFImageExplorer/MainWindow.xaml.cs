@@ -75,7 +75,7 @@ namespace WPFImageExplorer
         private void btn_nomal_Checked(object sender, RoutedEventArgs e)
         {
             RadioButton radioButton = sender as RadioButton;
-       if (radioButton != null)
+             if (radioButton != null)
             {
                 string tag = radioButton.Tag?.ToString();
                 if (string.IsNullOrEmpty(tag))
