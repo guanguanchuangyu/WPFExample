@@ -1,0 +1,23 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net6.0-windows</TargetFramework>
+    <Nullable>enable</Nullable>
+    <UseWPF>true</UseWPF>
+    <ImplicitUsings>enable</ImplicitUsings>
+  </PropertyGroup>
+	
+	<PropertyGroup>
+		<MainProject>WPFShell</MainProject>
+	</PropertyGroup>
+	<ItemGroup>
+		<PackageReference Include="HandyControl" Version="3.4.0" />
+		<PackageReference Include="Prism.Core" Version="8.1.97" />
+		<PackageReference Include="Prism.Wpf" Version="8.1.97" />
+	</ItemGroup>
+
+	<Target Name="PostBuild" AfterTargets="PostBuildEvent">
+		<RemoveDir Directories="$(SolutionDir)$(MainProject)\bin\$(Configuration)\$(TargetFramework)\Modules\$(TargetName)\" />
+		<Exec Command="xcopy &quot;$(TargetDir)*$(TargetExt)&quot; &quot;$(SolutionDir)$(MainProject)\bin\$(Configuration)\$(TargetFramework)\Modules\$(TargetName)\&quot; /Y /S" />
+	</Target>
+</Project>
