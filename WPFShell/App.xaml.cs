@@ -19,7 +19,25 @@ namespace WPFShell
     /// </summary>
     public partial class App : PrismApplication
     {
+        public App()
+        {
+            AppDomain.CurrentDomain.AssemblyLoad += CurrentDomain_AssemblyLoad;
+        }
 
+        private void CurrentDomain_AssemblyLoad(object? sender, AssemblyLoadEventArgs args)
+        {
+            //if (args.LoadedAssembly.FullName.Contains("resources"))
+            //{
+            //    Debugger.Break();
+            //}
+        }
+
+        protected override void OnStartup(StartupEventArgs e)
+        {
+            base.OnStartup(e);
+            var culture = Thread.CurrentThread.CurrentUICulture;
+            Debug.WriteLine($"当前UI线程语言：{culture.Name}");
+        }
         protected override Window CreateShell()
         {
            return Container.Resolve<MainWindow>();
@@ -27,6 +45,10 @@ namespace WPFShell
 
         protected override void RegisterTypes(IContainerRegistry containerRegistry)
         {
+            AppDomain.CurrentDomain.GetAssemblies().ToList().ForEach(assembly =>
+            {
+                Debug.WriteLine(assembly.FullName);
+            });
             // 注册服务
             containerRegistry.RegisterSingleton<MainWindow>();
             containerRegistry.RegisterSingleton<MainWindowViewModel>();
